@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react';
 import generator from 'generate-password';
-import styles from '../styles/Home.module.css';
+// import styles from '../styles/Home.module.css';
 
 const index = () => {
   const [password, setPassword] = useState('');
@@ -24,16 +25,7 @@ const index = () => {
   return (
     <>
       <div>
-        <h5>
-          Generate a random password in React -
-          <a
-            href="https://www.cluemediator.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Clue Mediator
-          </a>
-        </h5>
+        <h1>Generate a random password</h1>
       </div>
 
       <label>

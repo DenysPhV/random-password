@@ -4,12 +4,18 @@ import generator from 'generate-password';
 import styles from '../styles/Home.module.css';
 
 const index = () => {
+  const LENGTH_PASSWORD = [
+    { id: 1, name: 'Simple', value: 8 },
+    { id: 2, name: 'Middle', value: 12 },
+    { id: 3, name: 'Complicated', value: 15 },
+    { id: 4, name: 'Difficult', value: 20 },
+  ];
+  // const [length, setLength] = useState(15);
+  const [length, setLength] = useState(LENGTH_PASSWORD);
   const [password, setPassword] = useState('');
-  const [length, setLength] = useState(15);
   const [isLowerCase, setIsLowerCase] = useState(true);
   const [isUpperCase, setIsUpperCase] = useState(false);
   const [isNumbers, setIsNumbers] = useState(false);
-  const [isSymbols, setIsSymbols] = useState(false);
 
   const generatePassword = () => {
     const pwd = generator.generate({
@@ -17,68 +23,85 @@ const index = () => {
       lowercase: isLowerCase,
       uppercase: isUpperCase,
       numbers: isNumbers,
-      symbols: isSymbols,
     });
     setPassword(pwd);
   };
 
+  const handleUpdate = e => {
+    setLength(e.target.value);
+  };
+
+  function handleClick(e) {
+    console.log('Кликнул', password);
+
+    window.navigator.clipboard.writeText(password);
+
+    setPassword('Copied!');
+  }
+
   return (
     <div className={styles.container}>
+      <h1 className={styles.title}>Generate a random password</h1>
       <form className={styles.form}>
-        <div>
-          <h1>Generate a random password</h1>
+        {/* Переписать на селект с выбором длины пароля */}
+        <div className={styles.selectContainer}>
+          <select onChange={handleUpdate}>
+            {[...LENGTH_PASSWORD].map(item => {
+              const { id, name, value } = item;
+              return (
+                <option key={id} value={value}>
+                  {name}: {value}
+                </option>
+              );
+            })}
+          </select>
         </div>
-
-        <label>
-          <span>Length:</span>
-          <input
-            type="number"
-            value={length}
-            onChange={e => setLength(e.target.value)}
-          />
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={isLowerCase}
-            onChange={() => setIsLowerCase(value => !value)}
-          />
-          <span>LowerCase</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={isUpperCase}
-            onChange={() => setIsUpperCase(value => !value)}
-          />
-          <span>UpperCase</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={isNumbers}
-            onChange={() => setIsNumbers(value => !value)}
-          />
-          <span>Numbers</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={isSymbols}
-            onChange={() => setIsSymbols(value => !value)}
-          />
-          <span>Symbols</span>
-        </label>
+        <h2>Note: Select the required checkbox! </h2>
+        <ul className={styles.checkboxItem}>
+          <li>
+            <label>
+              <input
+                type="checkbox"
+                checked={isLowerCase}
+                onChange={() => setIsLowerCase(value => !value)}
+              />
+              <span>LowerCase</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input
+                type="checkbox"
+                checked={isUpperCase}
+                onChange={() => setIsUpperCase(value => !value)}
+              />
+              <span>UpperCase</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input
+                type="checkbox"
+                checked={isNumbers}
+                onChange={() => setIsNumbers(value => !value)}
+              />
+              <span>Numbers</span>
+            </label>
+          </li>
+        </ul>
 
         <div>
-          {' '}
-          <small>Note: At least one should be true.</small>
-          <input
+          <button
             type="button"
             value="Generate Password"
             onClick={generatePassword}
-          />
-          Password: {password}
+          >
+            Password:
+          </button>
+          <input placeholder={password} readOnly />
+          <button type="button" value="Copy Password" onClick={handleClick}>
+            Copy
+          </button>
         </div>
       </form>
     </div>

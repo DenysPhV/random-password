@@ -33,6 +33,19 @@
   margin: 0 auto;
 }
 
+.select {
+  min-width: 300px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  border: 2px solid grey;
+  border-radius: 3px;
+}
+
+/* .options {
+  padding-top: 10px;
+} */
+
 .checkboxItem {
   display: flex;
   justify-content: space-around;

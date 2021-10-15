@@ -31,7 +31,7 @@ const index = () => {
   const handleUpdate = e => {
     setLength(e.target.value);
   };
-
+  // получили и скопировали пароль
   const handleClick = e => {
     console.log('Получить пароль', password);
     window.navigator.clipboard.writeText(password);
@@ -44,64 +44,79 @@ const index = () => {
 
       <form className={styles.form}>
         <div className={styles.selectContainer}>
-          <select onChange={handleUpdate} className={styles.select}>
+          <select onChange={handleUpdate} className={styles.select} multiple>
             {[...LENGTH_PASSWORD].map(item => {
               const { id, name, value } = item;
               return (
-                <option key={id} value={value} className={styles.options}>
+                <option key={id} value={value} className={styles.optionsItem}>
                   {name}: {value}
                 </option>
               );
             })}
           </select>
+          <span className={styles.focus}></span>
         </div>
 
-        <div>
-          <h2>Note: Select the required checkbox! </h2>
+        <div className={styles.checkboxContainer}>
+          <h2 className={styles.titleCheckbox}>
+            Note: Select the required checkbox!{' '}
+          </h2>
           <ul className={styles.checkboxItem}>
             <li>
-              <label>
+              <label className={styles.label}>
                 <input
                   type="checkbox"
                   checked={isLowerCase}
                   onChange={() => setIsLowerCase(value => !value)}
                 />
-                <span>LowerCase</span>
+                <span className={styles.checkmark}>
+                  <p>LowerCase</p>
+                </span>
               </label>
             </li>
             <li>
-              <label>
+              <label className={styles.label}>
                 <input
                   type="checkbox"
                   checked={isUpperCase}
                   onChange={() => setIsUpperCase(value => !value)}
                 />
-                <span>UpperCase</span>
+                <span className={styles.checkmark}>
+                  <p>UpperCase</p>
+                </span>
               </label>
             </li>
             <li>
-              <label>
+              <label className={styles.label}>
                 <input
                   type="checkbox"
                   checked={isNumbers}
                   onChange={() => setIsNumbers(value => !value)}
                 />
-                <span>Numbers</span>
+                <span className={styles.checkmark}>
+                  <p>Numbers</p>
+                </span>
               </label>
             </li>
           </ul>
         </div>
 
-        <div>
+        <div className={styles.passwordContainer}>
           <button
             type="button"
             value="Generate Password"
             onClick={generatePassword}
+            className={styles.button}
           >
             Password:
           </button>
-          <input placeholder={password} readOnly />
-          <button type="button" value="Copy Password" onClick={handleClick}>
+          <input placeholder={password} readOnly multiple />
+          <button
+            type="button"
+            value="Copy Password"
+            onClick={handleClick}
+            className={styles.button}
+          >
             Copy
           </button>
         </div>

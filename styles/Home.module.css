@@ -14,6 +14,8 @@
 .checkboxContainer {
   padding-top: 20px;
   padding-bottom: 20px;
+
+  text-align: center;
 }
 
 .passwordContainer {
@@ -33,6 +35,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .titleCheckbox {
   font-size: 20px;
   font-weight: 700;
@@ -71,9 +74,9 @@
   width: 100%;
 
   border: 1px solid #777777;
-  border-radius: 0.25em;
+  border-radius: 5px;
 
-  padding: 0.25em 0.5em;
+  padding: 5px 10px;
 
   cursor: pointer;
   line-height: 1.1;
@@ -93,10 +96,10 @@
   flex-direction: column;
   justify-content: space-between;
 
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 
-  height: 100px;
+  min-height: 100px;
 }
 /* Customize the label (the container) */
 .label {
@@ -173,7 +176,36 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
 .button {
+  margin: auto;
   margin-top: 15px;
   margin-bottom: 15px;
+
+  min-width: 100px;
+
+  color: #ffffff;
+  font-size: 15px;
+  padding: 5px 10px;
+
+  border: transparent;
+  border-radius: 5px;
+  background-color: #2196f3;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #0868b6;
+  cursor: pointer;
+}
+
+.input {
+  box-sizing: border-box;
+  padding: 5px 10px;
+
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+
+  border: transparent hidden;
 }

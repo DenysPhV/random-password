@@ -4,19 +4,22 @@ import generator from 'generate-password';
 import styles from '../styles/Home.module.css';
 
 const index = () => {
+  // константа массива объектов длин паролей
   const LENGTH_PASSWORD = [
     { id: 0, name: 'Select length', value: 0 },
     { id: 1, name: 'Simple', value: 8 },
     { id: 2, name: 'Middle', value: 12 },
     { id: 3, name: 'Complicated', value: 15 },
     { id: 4, name: 'Difficult', value: 20 },
+    { id: 4, name: 'Super difficult', value: 100 },
   ];
-  // const [length, setLength] = useState(15);
+
   const [length, setLength] = useState(LENGTH_PASSWORD);
   const [password, setPassword] = useState('');
   const [isLowerCase, setIsLowerCase] = useState(true);
   const [isUpperCase, setIsUpperCase] = useState(false);
   const [isNumbers, setIsNumbers] = useState(false);
+  // const visibleButton = useRef(true);
 
   const generatePassword = () => {
     const pwd = generator.generate({
@@ -28,12 +31,11 @@ const index = () => {
     setPassword(pwd);
   };
 
-  const handleUpdate = e => {
-    setLength(e.target.value);
-  };
-  // получили и скопировали пароль
-  const handleClick = e => {
-    console.log('Получить пароль', password);
+  // при клике передаем полученое значение из константы массива
+  const handleUpdate = e => setLength(e.target.value);
+
+  //скопировали пароль
+  const handleClick = () => {
     window.navigator.clipboard.writeText(password);
     setPassword('Copied!');
   };
@@ -43,8 +45,9 @@ const index = () => {
       <h1 className={styles.title}>Generate a random password</h1>
 
       <form className={styles.form}>
+        {/* секция dropdown */}
         <div className={styles.selectContainer}>
-          <select onChange={handleUpdate} className={styles.select} multiple>
+          <select onChange={handleUpdate} className={styles.select}>
             {[...LENGTH_PASSWORD].map(item => {
               const { id, name, value } = item;
               return (
@@ -56,7 +59,7 @@ const index = () => {
           </select>
           <span className={styles.focus}></span>
         </div>
-
+        {/* секция checkbox */}
         <div className={styles.checkboxContainer}>
           <h2 className={styles.titleCheckbox}>
             Note: Select the required checkbox!{' '}
@@ -99,27 +102,34 @@ const index = () => {
               </label>
             </li>
           </ul>
-        </div>
-
-        <div className={styles.passwordContainer}>
           <button
             type="button"
             value="Generate Password"
             onClick={generatePassword}
             className={styles.button}
           >
-            Password:
-          </button>
-          <input placeholder={password} readOnly multiple />
-          <button
-            type="button"
-            value="Copy Password"
-            onClick={handleClick}
-            className={styles.button}
-          >
-            Copy
+            <span>Password</span>
           </button>
         </div>
+        {/* секция генерации копирования пароля  */}
+        {password && (
+          <div className={styles.passwordContainer}>
+            <input
+              placeholder={password}
+              readOnly
+              multiple
+              className={styles.input}
+            />
+            <button
+              type="button"
+              value="CopyPassword"
+              onClick={handleClick}
+              className={styles.button}
+            >
+              <span>Copy</span>
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
